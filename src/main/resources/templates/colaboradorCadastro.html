@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+   <head>
+	  <meta charset="utf-8"/>
+	  <title>Cadastro Colaborador</title>
+	  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	  <link rel="stylesheet" type="text/css" href="css/style.css">
+	  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+	  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	  <script src="js/Cadastro_Colaborador.js" async></script>
+	  <script src="js/Insert_Menu.js"></script>
+   </head>
+   <body>
+   	<h1> SCGL - Sistema de Controle de Ginástica Laboral </h1>
+
+	<div data-include="Menu"></div>
+	
+
+   	<form class="row g-2" id="formColab">
+			<!--Campo provisório -->
+			<div class="col-md-3">
+				<label for="comboEmpresas" class="form-label">Empresa</label>
+				<select id="comboEmpresas" class="form-select">
+					<option disabled selected>Selecione a empresa</option>
+				</select>
+			</div>
+			
+			<div class="col-md-3">
+				<label for="comboSetores" class="form-label">Setor</label>
+				<select id="comboSetores" class="form-select">
+					<option disabled selected>Selecione a empresa </option>
+				</select>
+			</div>
+			<div class="col-md-6">
+			  <label for="inputCpfColab" class="form-label">CPF*</label>
+			  <input type="text" class="form-control" id="inputCpfColab" required="true" placeholder="Digite o CPF" onkeypress="$(this).mask('000.000.000-00');"onblur="validarCPF(this)">
+			</div>
+			
+			<div class="col-md-6">
+			  <label for="inputNomeColab" class="form-label">Nome*</label>
+			  <input type="nome" class="form-control" id="inputNomeColab" required="true" placeholder="Digite o nome">
+			</div>
+
+			<div class="col-md-6">
+			  <label for="inputRgColab" class="form-label">RG</label>
+			  <input type="text" class="form-control" id="inputRgColab" required="true" placeholder="Digite o RG" onkeypress="$(this).mask('0000000')">
+			</div>
+
+			<div class="col-md-6">
+			  <label for="inputDtNascColab" class="form-label">Data Nascimento</label>
+			  <input type="date" class="form-control" id="inputDtNascColab" required="true" placeholder="Digite a data de nascimento">
+			</div>
+
+			
+
+			<div class="col-md-6">
+    			<label for="inputEmailColab" class="form-label">E-mail*</label>
+    			<input type="email" class="form-control" id="inputEmailColab" required="true" placeholder="Digite o e-mail">
+  			</div>
+
+			<div class="col-md-6">
+    			<label for="inputTelefoneColab" class="form-label">Telefone</label>
+    			<input type="text" class="form-control" id="inputTelefoneColab" required="true" placeholder="Digite o telefone" onkeypress="$(this).mask('(00) 00000-0000')">
+  			</div>
+  			
+  			<center>
+				<div class="col-md-4">
+				  <label for="inputStatusColab" class="form-label">Status*</label>
+				  <select id="inputStatusColab" class="form-select">
+				    <option disabled selected>Selecione o status</option>
+				    <option>Ativo</option>
+				    <option>Inativo</option>
+				  </select>
+				</div>
+			</center>
+
+  			<div class="col-md-4" id="btnCadastroColab">
+  				<br>
+				<button type="submit" class="btn btn-success" id="btnSalvar">Salvar</button>
+				<button type="reset" class="btn btn-danger" id="btnCancelar">Cancelar</button>
+			</div>
+		</form>
+		
+		<footer class="text-center text-white fixed-bottom">
+			<div class="text-center p-3" id="rodape">
+				Cadastro de Colaborador
+		  	</div>
+		</footer>
+   </body>
+</html>

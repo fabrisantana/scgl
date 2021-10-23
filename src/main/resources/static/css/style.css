@@ -1,0 +1,171 @@
+#formFisio{
+	padding: 0em 3em;
+}
+
+a { 
+	color: inherit;
+	text-decoration: none;
+} 
+
+a:hover{
+	color: #FFFFFF;
+}
+
+h1{
+	background-color: rgba(25,135,84,1);
+	color: white;
+	text-align: center;
+	padding: 0.3em;
+}
+
+button{
+	padding: 500em 75em;
+}
+
+#divPesq{
+	padding: 0em 3em;
+}
+
+#btnCadastroFisio{
+	position:relative;
+	left:44.75%;
+}
+
+#btnAlteraFisio{
+	position:relative;
+	left: 44.75%;
+}
+
+#btnPesqFisio{
+	position: relative;
+	left: 44.75%;
+}
+
+#btnParticipacao{
+	position: relative;
+	left: 44.75%;	
+}
+
+.container{
+	position: relative;
+	max-height: 450px;
+	overflow: auto;
+}
+
+/*
+#headTable{
+	width: 5000%;
+	position: fixed;
+}
+
+
+.table-fixed{
+	width: 100%;
+}
+
+.table-fixed thead{
+	width: 98.5%;
+}
+
+.table-fixed tbody{
+	height: 250px;
+	overflow-y: auto;
+	width: 100%;
+}
+
+
+.table-fixed thead,tbody,tr{ /*problema está aqui para travar o cabeçalho
+	display: block;
+}
+
+
+.table-fixed tbody tr td{
+	float: left;
+}
+
+.table-fixed thead tr th{
+	float: left;
+}
+*/
+
+.row{
+	margin-left: 0;
+	margin-right: 0;
+}
+
+#rodape{
+	background-color: rgba(25,135,84,1)
+}
+
+/*Início configuguração checkbox*/
+.ligaDesligaCheckbox {
+	position: absolute;
+	left: -9999px;
+}
+
+.ligaDesligaBotao {
+	display: inline-block;
+	vertical-align: middle;
+	position: absolute;
+	cursor: pointer;
+}
+
+.ligaDesligaBotao::before,
+.ligaDesligaBotao::after {
+	content: "";
+	box-shadow: 0 0 0 1px #CCC;
+	transition: all 0.2s ease;
+}
+
+.ligaDesligaBotao::before {
+	position: absolute;
+	left: 0.025em;
+	border-radius: 1em;
+	height: 1em;
+	width: 2em;
+	background: #900;
+}
+
+.ligaDesligaBotao::after {
+	position: absolute;
+	top: 0.025em;
+	left: 0.025em;
+	width: 1em;
+	height: 1em;
+	border-radius: 100%;
+	background: #FFF;
+}
+
+.ligaDesligaCheckbox:checked + .ligaDesligaBotao::before {
+	background: #55D069;
+}
+
+.ligaDesligaCheckbox:checked + .ligaDesligaBotao::after {
+	left: 1em;
+}
+/*Fim configuguração checkbox*/
+
+
+/*Menu*/
+#dropdownMenuButton{
+	color: rgba(25,135,84,1);
+	background: #FFF;
+	border: none;
+}
+
+.dropdown-item{
+	color: rgba(25,135,84,1);
+}
+
+#menu{
+	color: rgba(25,135,84,1);
+}
+
+#offcanvasExample{
+	width: 15em;
+}
+
+#spanMenu{
+	font-size:20px;
+	cursor:pointer;
+}

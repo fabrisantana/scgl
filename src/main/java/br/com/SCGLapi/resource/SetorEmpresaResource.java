@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,16 +39,23 @@ public class SetorEmpresaResource {
 
 	@GetMapping
 	public ResponseEntity<?> listar(){
-		List<SetorEmpresa> setoresEmpresa = setorEmpresaRepository.findAll();	
+		List<SetorEmpresa> setoresEmpresa = setorEmpresaRepository.findAll(Sort.by("siglaSetorEmpresa"));	
 		return !setoresEmpresa.isEmpty() ? ResponseEntity.ok(setoresEmpresa) : ResponseEntity.noContent().build();
 	}
 	
-	//Listar uma
+	//Listar um
 	@GetMapping("/{id}")
 	public java.util.Optional<SetorEmpresa> buscaPeloId(@PathVariable Integer id) {
 		return setorEmpresaRepository.findById(id);
 	}
 	
+	/* Buscar pelo Id do Cliente, o problema � que s� funciona com 1 item
+	@GetMapping(value = "/{idCliente}")
+	public ResponseEntity<SetorEmpresa> buscar(@PathVariable Integer idCliente) {
+		SetorEmpresa obj = setorEmpresaService.findByIdCliente(idCliente);
+	    return ResponseEntity.ok().body(obj);
+	}
+	*/
 	//Cadastrar
 	
 	@PostMapping

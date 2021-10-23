@@ -2,6 +2,7 @@ package br.com.SCGLapi.service;
 
 import java.util.Optional;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -28,5 +29,12 @@ public class SetorEmpresaService {
 		setorEmpresaRepository.save(setorEmpresaTemp);
 		return setorEmpresaRepository.save(setorEmpresaTemp);	
 	}
+	
+	/* 
+	public SetorEmpresa findByIdCliente(Integer idCliente) {
+	    Optional<SetorEmpresa> obj = setorEmpresaRepository.findByIdCliente(idCliente); 
+	    return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!", null));
+	}
+	*/
 }
 

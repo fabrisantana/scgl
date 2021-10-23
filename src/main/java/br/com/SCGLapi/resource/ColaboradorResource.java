@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +39,7 @@ public class ColaboradorResource {
 
 	@GetMapping
 	public ResponseEntity<?> listar(){
-		List<Colaborador> colaboradores = colaboradorRepository.findAll();	
+		List<Colaborador> colaboradores = colaboradorRepository.findAll(Sort.by("colaboradorNome"));	
 		return !colaboradores.isEmpty() ? ResponseEntity.ok(colaboradores) : ResponseEntity.noContent().build();
 	}
 	

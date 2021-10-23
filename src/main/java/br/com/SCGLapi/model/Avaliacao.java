@@ -1,7 +1,5 @@
 package br.com.SCGLapi.model;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -29,7 +27,6 @@ public class Avaliacao {
 	@Column(name = "AVA_DESCRICAO")
 	private String descricaoAvaliacao;
 	
-	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	@Column(name = "AVA_DT_HORA_AVALIACAO")
 	private Date dataHoraAvaliacao;
@@ -42,13 +39,10 @@ public class Avaliacao {
 	@Column(name = "AVA_COL_ID")
 	private Integer idColaborador;
 	
-	/*
-	private String getDateTime() {
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		Date date = new Date();
-		return dateFormat.format(date);
-	}
-	*/
+	@NotNull
+	@Column(name = "AVA_SES_ID")
+	private Integer idSessaoLaboral;
+
 	
 	//Getters e Setters
 	public Integer getIdAvaliacao() {
@@ -91,11 +85,12 @@ public class Avaliacao {
 		this.idColaborador = idColaborador;
 	}
 
-	@Override
-	public String toString() {
-		return "Avaliacao [idAvaliacao=" + idAvaliacao + ", descricaoAvaliacao=" + descricaoAvaliacao
-				+ ", dataHoraAvaliacao=" + dataHoraAvaliacao + ", idFisioterapeuta=" + idFisioterapeuta
-				+ ", idColaborador=" + idColaborador + "]";
+	public Integer getIdSessaoLaboral() {
+		return idSessaoLaboral;
+	}
+
+	public void setIdSessaoLaboral(Integer idSessaoLaboral) {
+		this.idSessaoLaboral = idSessaoLaboral;
 	}
 
 	@Override
@@ -107,6 +102,7 @@ public class Avaliacao {
 		result = prime * result + ((idAvaliacao == null) ? 0 : idAvaliacao.hashCode());
 		result = prime * result + ((idColaborador == null) ? 0 : idColaborador.hashCode());
 		result = prime * result + ((idFisioterapeuta == null) ? 0 : idFisioterapeuta.hashCode());
+		result = prime * result + ((idSessaoLaboral == null) ? 0 : idSessaoLaboral.hashCode());
 		return result;
 	}
 
@@ -144,7 +140,13 @@ public class Avaliacao {
 				return false;
 		} else if (!idFisioterapeuta.equals(other.idFisioterapeuta))
 			return false;
+		if (idSessaoLaboral == null) {
+			if (other.idSessaoLaboral != null)
+				return false;
+		} else if (!idSessaoLaboral.equals(other.idSessaoLaboral))
+			return false;
 		return true;
 	}
-	
+
+
 }

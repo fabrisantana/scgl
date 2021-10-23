@@ -4,8 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +27,7 @@ public class Cliente {
 	private String clienteRazaoSocial;
 	
 	@NotNull
-	@Size(min = 10, max = 250)
+	@Size(min = 4, max = 250)
 	@Column(name = "CLI_NOME_FANTASIA")
 	private String clienteNomeFantasia;
 	
@@ -50,10 +48,9 @@ public class Cliente {
 	@Column(name = "CLI_TELEFONE")
 	private String clienteTelefone;
 	
-	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@Column(name = "CLI_DT_INCLUSAO")
-	private Date clienteDataInclusao;
+	@Column(name = "CLI_DT_ATUALIZACAO")
+	private Date clienteDataAtualizacao;
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "CLI_DT_EXCLUSAO")
@@ -76,14 +73,10 @@ public class Cliente {
 	private String clienteComplementoEndereco;
 	
 	@NotNull
-	@Enumerated(EnumType.STRING)
 	@Column(name = "CLI_STATUS")
-	private Status clienteStatus;
+	private String clienteStatus;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "CLI_PERFIL")
-	private Perfil clientePerfil;
-
+	
 	
 	//Getters e Setters
 	public Integer getClienteId() {
@@ -142,12 +135,12 @@ public class Cliente {
 		this.clienteTelefone = clienteTelefone;
 	}
 
-	public Date getClienteDataInclusao() {
-		return clienteDataInclusao;
+	public Date getClienteDataAtualizacao() {
+		return clienteDataAtualizacao;
 	}
 
-	public void setClienteDataInclusao(Date clienteDataInclusao) {
-		this.clienteDataInclusao = clienteDataInclusao;
+	public void setClienteDataAtualizacao(Date clienteDataAtualizacao) {
+		this.clienteDataAtualizacao = clienteDataAtualizacao;
 	}
 
 	public Date getClienteDataExclusao() {
@@ -190,33 +183,127 @@ public class Cliente {
 		this.clienteComplementoEndereco = clienteComplementoEndereco;
 	}
 
-	public Status getClienteStatus() {
+	public String getClienteStatus() {
 		return clienteStatus;
 	}
 
-	public void setClienteStatus(Status clienteStatus) {
+	public void setClienteStatus(String clienteStatus) {
 		this.clienteStatus = clienteStatus;
 	}
 
-	public Perfil getClientePerfil() {
-		return clientePerfil;
-	}
-
-	public void setClientePerfil(Perfil clientePerfil) {
-		this.clientePerfil = clientePerfil;
-	}
-
-	//ToString
+	
 	@Override
 	public String toString() {
 		return "Cliente [clienteId=" + clienteId + ", clienteRazaoSocial=" + clienteRazaoSocial
 				+ ", clienteNomeFantasia=" + clienteNomeFantasia + ", clienteInscricaoEstadual="
 				+ clienteInscricaoEstadual + ", clienteCnpj=" + clienteCnpj + ", clienteEmail=" + clienteEmail
-				+ ", clienteTelefone=" + clienteTelefone + ", clienteDataInclusao=" + clienteDataInclusao
+				+ ", clienteTelefone=" + clienteTelefone + ", clienteDataAtualizacao=" + clienteDataAtualizacao
 				+ ", clienteDataExclusao=" + clienteDataExclusao + ", clienteCidade=" + clienteCidade + ", clienteCep="
 				+ clienteCep + ", clienteLogradouro=" + clienteLogradouro + ", clienteComplementoEndereco="
-				+ clienteComplementoEndereco + ", clienteStatus=" + clienteStatus + ", clientePerfil=" + clientePerfil
-				+ "]";
+				+ clienteComplementoEndereco + ", clienteStatus=" + clienteStatus + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((clienteCep == null) ? 0 : clienteCep.hashCode());
+		result = prime * result + ((clienteCidade == null) ? 0 : clienteCidade.hashCode());
+		result = prime * result + ((clienteCnpj == null) ? 0 : clienteCnpj.hashCode());
+		result = prime * result + ((clienteComplementoEndereco == null) ? 0 : clienteComplementoEndereco.hashCode());
+		result = prime * result + ((clienteDataAtualizacao == null) ? 0 : clienteDataAtualizacao.hashCode());
+		result = prime * result + ((clienteDataExclusao == null) ? 0 : clienteDataExclusao.hashCode());
+		result = prime * result + ((clienteEmail == null) ? 0 : clienteEmail.hashCode());
+		result = prime * result + ((clienteId == null) ? 0 : clienteId.hashCode());
+		result = prime * result + ((clienteInscricaoEstadual == null) ? 0 : clienteInscricaoEstadual.hashCode());
+		result = prime * result + ((clienteLogradouro == null) ? 0 : clienteLogradouro.hashCode());
+		result = prime * result + ((clienteNomeFantasia == null) ? 0 : clienteNomeFantasia.hashCode());
+		result = prime * result + ((clienteRazaoSocial == null) ? 0 : clienteRazaoSocial.hashCode());
+		result = prime * result + ((clienteStatus == null) ? 0 : clienteStatus.hashCode());
+		result = prime * result + ((clienteTelefone == null) ? 0 : clienteTelefone.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		if (clienteCep == null) {
+			if (other.clienteCep != null)
+				return false;
+		} else if (!clienteCep.equals(other.clienteCep))
+			return false;
+		if (clienteCidade == null) {
+			if (other.clienteCidade != null)
+				return false;
+		} else if (!clienteCidade.equals(other.clienteCidade))
+			return false;
+		if (clienteCnpj == null) {
+			if (other.clienteCnpj != null)
+				return false;
+		} else if (!clienteCnpj.equals(other.clienteCnpj))
+			return false;
+		if (clienteComplementoEndereco == null) {
+			if (other.clienteComplementoEndereco != null)
+				return false;
+		} else if (!clienteComplementoEndereco.equals(other.clienteComplementoEndereco))
+			return false;
+		if (clienteDataAtualizacao == null) {
+			if (other.clienteDataAtualizacao != null)
+				return false;
+		} else if (!clienteDataAtualizacao.equals(other.clienteDataAtualizacao))
+			return false;
+		if (clienteDataExclusao == null) {
+			if (other.clienteDataExclusao != null)
+				return false;
+		} else if (!clienteDataExclusao.equals(other.clienteDataExclusao))
+			return false;
+		if (clienteEmail == null) {
+			if (other.clienteEmail != null)
+				return false;
+		} else if (!clienteEmail.equals(other.clienteEmail))
+			return false;
+		if (clienteId == null) {
+			if (other.clienteId != null)
+				return false;
+		} else if (!clienteId.equals(other.clienteId))
+			return false;
+		if (clienteInscricaoEstadual == null) {
+			if (other.clienteInscricaoEstadual != null)
+				return false;
+		} else if (!clienteInscricaoEstadual.equals(other.clienteInscricaoEstadual))
+			return false;
+		if (clienteLogradouro == null) {
+			if (other.clienteLogradouro != null)
+				return false;
+		} else if (!clienteLogradouro.equals(other.clienteLogradouro))
+			return false;
+		if (clienteNomeFantasia == null) {
+			if (other.clienteNomeFantasia != null)
+				return false;
+		} else if (!clienteNomeFantasia.equals(other.clienteNomeFantasia))
+			return false;
+		if (clienteRazaoSocial == null) {
+			if (other.clienteRazaoSocial != null)
+				return false;
+		} else if (!clienteRazaoSocial.equals(other.clienteRazaoSocial))
+			return false;
+		if (clienteStatus == null) {
+			if (other.clienteStatus != null)
+				return false;
+		} else if (!clienteStatus.equals(other.clienteStatus))
+			return false;
+		if (clienteTelefone == null) {
+			if (other.clienteTelefone != null)
+				return false;
+		} else if (!clienteTelefone.equals(other.clienteTelefone))
+			return false;
+		return true;
 	}
 	
 }

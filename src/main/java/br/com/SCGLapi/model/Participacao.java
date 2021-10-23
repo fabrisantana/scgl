@@ -1,7 +1,5 @@
 package br.com.SCGLapi.model;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,10 +25,9 @@ public class Participacao {
 	@Column(name = "PAR_FREQUENCIA")
 	private Boolean participacaoFrequencia;
 	
-	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	@Column(name = "PAR_DT_HORA_FREQUENCIA")
-	private Date dataHoraParticipacao;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Column(name = "PAR_DT_FREQUENCIA")
+	private Date dataParticipacao;
 	
 	@Column(name = "PAR_JUSTIFICATIVA")
 	private String participacaoJustificativa;
@@ -43,14 +39,11 @@ public class Participacao {
 	@NotNull
 	@Column(name = "PAR_COL_ID")
 	private Integer idColaborador;
+	
+	@NotNull
+	@Column(name = "PAR_SET_ID")
+	private Integer idSetorEmpresa;
 
-	/*
-	private String getDateTime() {
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		Date date = new Date();
-		return dateFormat.format(date);
-	}
-	*/
 	
 	//Getters e Setters
 	public Integer getIdParticipacao() {
@@ -69,12 +62,12 @@ public class Participacao {
 		this.participacaoFrequencia = participacaoFrequencia;
 	}
 
-	public Date getDataHoraParticipacao() {
-		return dataHoraParticipacao;
+	public Date getDataParticipacao() {
+		return dataParticipacao;
 	}
 
-	public void setDataHoraParticipacao(Date dataHoraParticipacao) {
-		this.dataHoraParticipacao = dataHoraParticipacao;
+	public void setDataParticipacao(Date dataParticipacao) {
+		this.dataParticipacao = dataParticipacao;
 	}
 
 	public String getParticipacaoJustificativa() {
@@ -101,22 +94,23 @@ public class Participacao {
 		this.idColaborador = idColaborador;
 	}
 
-	@Override
-	public String toString() {
-		return "Participacao [idParticipacao=" + idParticipacao + ", participacaoFrequencia=" + participacaoFrequencia
-				+ ", dataHoraParticipacao=" + dataHoraParticipacao + ", participacaoJustificativa="
-				+ participacaoJustificativa + ", idSessaoLaboral=" + idSessaoLaboral + ", idColaborador="
-				+ idColaborador + "]";
+	public Integer getIdSetorEmpresa() {
+		return idSetorEmpresa;
+	}
+
+	public void setIdSetorEmpresa(Integer idSetorEmpresa) {
+		this.idSetorEmpresa = idSetorEmpresa;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((dataHoraParticipacao == null) ? 0 : dataHoraParticipacao.hashCode());
+		result = prime * result + ((dataParticipacao == null) ? 0 : dataParticipacao.hashCode());
 		result = prime * result + ((idColaborador == null) ? 0 : idColaborador.hashCode());
 		result = prime * result + ((idParticipacao == null) ? 0 : idParticipacao.hashCode());
 		result = prime * result + ((idSessaoLaboral == null) ? 0 : idSessaoLaboral.hashCode());
+		result = prime * result + ((idSetorEmpresa == null) ? 0 : idSetorEmpresa.hashCode());
 		result = prime * result + ((participacaoFrequencia == null) ? 0 : participacaoFrequencia.hashCode());
 		result = prime * result + ((participacaoJustificativa == null) ? 0 : participacaoJustificativa.hashCode());
 		return result;
@@ -131,10 +125,10 @@ public class Participacao {
 		if (getClass() != obj.getClass())
 			return false;
 		Participacao other = (Participacao) obj;
-		if (dataHoraParticipacao == null) {
-			if (other.dataHoraParticipacao != null)
+		if (dataParticipacao == null) {
+			if (other.dataParticipacao != null)
 				return false;
-		} else if (!dataHoraParticipacao.equals(other.dataHoraParticipacao))
+		} else if (!dataParticipacao.equals(other.dataParticipacao))
 			return false;
 		if (idColaborador == null) {
 			if (other.idColaborador != null)
@@ -151,6 +145,11 @@ public class Participacao {
 				return false;
 		} else if (!idSessaoLaboral.equals(other.idSessaoLaboral))
 			return false;
+		if (idSetorEmpresa == null) {
+			if (other.idSetorEmpresa != null)
+				return false;
+		} else if (!idSetorEmpresa.equals(other.idSetorEmpresa))
+			return false;
 		if (participacaoFrequencia == null) {
 			if (other.participacaoFrequencia != null)
 				return false;
@@ -163,4 +162,5 @@ public class Participacao {
 			return false;
 		return true;
 	}
+	
 }

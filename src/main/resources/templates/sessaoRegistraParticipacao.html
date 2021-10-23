@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+   <head>
+      <meta charset="utf-8"/>
+      <title>Participação Ginástica Laboral</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+	   <script src="js/Participacao_Ginastica.js" async></script>
+	   <script src="js/Insert_Menu.js"></script>
+   </head>
+   <body>
+		<h1> SCGL - Sistema de Controle de Ginástica Laboral </h1>
+		
+		<div data-include="Menu"></div>
+		
+		<form class="row g-2" id="formParticip">	
+		
+			<!--Campo provisório -->
+			<div class="col-md-2">
+			  <label for="idFisio" class="form-label">Id Fisioterapeuta</label>
+			  <input type="number" class="form-control" id="idFisio" required="true">
+			</div>
+	
+			<div class="col-md-3">
+				<label for="comboEmpresas" class="form-label">Empresa</label>
+				<select id="comboEmpresas" class="form-select">
+					<option disabled selected>Selecione a empresa</option>
+				</select>
+			</div>
+	
+		<div class="col-md-3">
+				<label for="comboSetores" class="form-label">Setor</label>
+				<select id="comboSetores" class="form-select">
+					<option disabled selected>Selecione a empresa </option>
+				</select>
+			</div>
+	
+			<div class="col-md-3">
+			  <label for="dataParticipacao" class="form-label">Data Chamada</label>
+			  <input type="date" class="form-control" id="dataParticipacao" disabled required="true">
+			</div>
+	
+			<div class="col-md-4" id="btnParticipacao">
+				<button type="submit" class="btn btn-primary" id="btnCarregar">Carregar Alunos</button>
+				<button type="submit" class="btn btn-success" id="btnSalvar">Salvar</button>
+				<button type="reset" class="btn btn-danger" id="btnCancelar">Cancelar</button>
+			</div>
+	
+		</form>
+		<br>
+		
+		<div class="container">
+			<div class="table-responsive">
+				<table class="table table-bordered table-hover" id="tableChamada">
+					<thead class="table-secondary text-center" id="headTable">
+						<tr>
+							<th class="w-25"> Nome </th>
+							<th class="w-25"> Setor </th>
+							<th class="w-25"> Frequência </th>
+						</tr>
+					</thead>
+					<tbody id="tableBodyChamada">
+	
+					</tbody>
+				</table>
+			</div>
+		</div>
+			
+		<footer class="text-center text-white fixed-bottom">
+			<div class="text-center p-3" id="rodape">
+		   	Participação Ginástica
+		  	</div>
+		</footer>
+   </body>
+</html>

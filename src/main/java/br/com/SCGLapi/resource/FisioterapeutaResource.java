@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.SCGLapi.model.Fisioterapeuta;
@@ -25,7 +28,7 @@ import br.com.SCGLapi.repository.FisioterapeutaRepository;
 import br.com.SCGLapi.service.FisioterapeutaService;
 
 @RestController
-@RequestMapping("/fisioterapeutas")
+//@RequestMapping("/fisioterapeutas")
 public class FisioterapeutaResource {
 
 	@Autowired
@@ -36,41 +39,42 @@ public class FisioterapeutaResource {
 	
 	//Listar Todas
 
-	@GetMapping
+	@GetMapping(value="/fisioterapeutas")
 	public ResponseEntity<?> listar(){
-		List<Fisioterapeuta> fisioterapeutas = fisioterapeutaRepository.findAll();	
+		List<Fisioterapeuta> fisioterapeutas = fisioterapeutaRepository.findAll(Sort.by("fisioterapeutaNome"));	
 		return !fisioterapeutas.isEmpty() ? ResponseEntity.ok(fisioterapeutas) : ResponseEntity.noContent().build();
 	}
 	
 	//Listar uma
-	@GetMapping("/{id}")
+	@GetMapping("/fisioterapeutas/{id}")
 	public java.util.Optional<Fisioterapeuta> buscaPeloId(@PathVariable Integer id) {
 		return fisioterapeutaRepository.findById(id);
 	}
 	
 	//Cadastrar
 	
-	@PostMapping
+	@PostMapping(value="/fisioterapeutas")
 	public ResponseEntity<Fisioterapeuta> criar(@RequestBody Fisioterapeuta fisioterapeuta, HttpServletResponse response) {
 		Fisioterapeuta fisioterapeutaBD = fisioterapeutaRepository.save(fisioterapeuta);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id")
-				.buildAndExpand(fisioterapeutaBD.getId()).toUri();
+				.buildAndExpand(fisioterapeutaBD.getFisioId()).toUri();
 		response.setHeader("Location", uri.toASCIIString());
 		return ResponseEntity.created(uri).body(fisioterapeutaBD);
 	}
 	
 	//Alterar
-	@PutMapping("/{id}")
+	@PutMapping("/fisioterapeutas/{id}")
 	public ResponseEntity<?> atualizar(@PathVariable Integer id, @Valid @RequestBody Fisioterapeuta fisioterapeuta) {
 		Fisioterapeuta fisioterapeutaGravado = fisioterapeutaService.atualizar(id, fisioterapeuta);
 		return ResponseEntity.ok(fisioterapeutaGravado);
 	}
 	
 	//Deletar
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/fisioterapeutas/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deletar(@PathVariable Integer id) {
 		fisioterapeutaRepository.deleteById(id);
 	}
+	
 }
