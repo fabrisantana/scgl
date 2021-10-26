@@ -1,12 +1,14 @@
 package br.com.SCGLapi.resource;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ControleAcessoTelas {
 
+	
 	@RequestMapping("/Menu")
 	public String menu(){
 		return "menu";
@@ -14,8 +16,23 @@ public class ControleAcessoTelas {
 	
 	@RequestMapping("/")
 	public String index(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
 		return "menu";
 	}
+
+	/*
+	@GetMapping(value = "/list-servers")
+    public ModelAndView listServers(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("list-servers");
+        modelAndView.addObject("servers", accountService.findAllServersAccount(username));
+        return modelAndView;
+    }
+	*/
 	
 	@RequestMapping("/login")
 	public String login(){
@@ -57,15 +74,20 @@ public class ControleAcessoTelas {
         return "sessaoRegistraParticipacao";
     }
 	
-	//Usu·rio inativo
+	//Usu√°rio inativo
 	@RequestMapping(value = "/inativo")
     public String inativo() {
         return "inativo";
     }
 	
-	//AdministraÁ„o de Fisioterapeutas
+	//Administra√ß√£o de Colaboradores
 	@RequestMapping("/colaboradorCadastro") 
     public String cadastroColaboradores() {
         return "colaboradorCadastro";
 	}
+	
+	@RequestMapping("/colaboradorPesquisa") //Apelido mesmo do href
+    public String pesquisaColaborador() {
+        return "colaboradorPesquisa";
+    }
 }

@@ -54,7 +54,7 @@ comboEmpresas.addEventListener("change", erroGetSetores =>{
     .then(respostaGetSetores => {
         document.getElementById("comboSetores").innerHTML = ""; 
         for(let i = 0; i < respostaGetSetores.length; i++){
-            if(respostaGetSetores[i].idCliente == idEmpresaSelecionada){
+            if(respostaGetSetores[i].idCliente == idEmpresaSelecionada && respostaGetSetores[i].setorEmpresaStatus == 'Ativo'){
                 let optionSetores = new Option(respostaGetSetores[i].siglaSetorEmpresa, respostaGetSetores[i].idSetorEmpresa);
                 comboSetores.add(optionSetores);
             }

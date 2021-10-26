@@ -1,8 +1,11 @@
-const username = document.getElementById('loginUsuario')
+
 
 
 addEventListener("change", capturaLoginUsuario =>{
 	capturaLoginUsuario.preventDefault()
-	localStorage.setItem("loginUsuario", username);
-	console.log($("#loginUsuario").val())
+	var username = document.getElementById('loginUsuario')
+	localStorage.setItem("loginUsuario", username.value);
+	
+	var usuarioLogado = document.getElementById('usuarioLogado')
+	usuarioLogado.innerText = localStorage.getItem("loginUsuario")
 })

@@ -35,7 +35,7 @@ public class UsuariosRole {
 	
 	@NotNull
 	@Column(name = "USR_STATUS")
-	private String statusUsuario;
+	private Boolean statusUsuario;
 	
 	@NotNull
 	@Column(name = "USR_EMAIL")
@@ -75,11 +75,11 @@ public class UsuariosRole {
 		this.nomeUsuario = nomeUsuario;
 	}
 
-	public String getStatusUsuario() {
+	public Boolean getStatusUsuario() {
 		return statusUsuario;
 	}
 
-	public void setStatusUsuario(String statusUsuario) {
+	public void setStatusUsuario(Boolean statusUsuario) {
 		this.statusUsuario = statusUsuario;
 	}
 

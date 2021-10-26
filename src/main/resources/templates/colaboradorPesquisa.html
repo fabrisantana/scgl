@@ -2,18 +2,20 @@
 <html lang="pt-br">
    <head>
       <meta charset="utf-8"/>
-      <title>Pesquisa Usuários</title>
+      <title>Pesquisa Colaboradores</title>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
       <link rel="stylesheet" type="text/css" href="css/style.css">
+      <link href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet">
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 	   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-	   <script src="js/Pesquisa_Usuario.js" async></script>
+	   <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+	   <script src="js/Pesquisa_Colaborador.js" async></script>
 	   <script src="js/Insert_Menu.js"></script>
    </head>
    <body>
 		<h1> SCGL - Sistema de Controle de Ginástica Laboral </h1>
-	
+		
 		<div data-include="Menu"></div>
 		<!--
 		<div class="row g-2" id="divPesq">
@@ -43,30 +45,49 @@
 			<div class="col-md-3" id="btnPesqFisio">
 				<br>
 				<button type="submit" class="btn btn-success" id="btnPesquisarFisio">Pesquisar</button>
-				<button type="submit" class="btn btn-success" id="btnInserirFisio"><a href="Cadastro_Fisioterapeuta" target="_self">Inserir Novo</a></button>
+				<button type="submit" class="btn btn-success" id="btnInserirFisio"><a href="fisioterapeutaCadastro" target="_self">Inserir Novo</a></button>
 			</div>
 		</div>
-
+	
 		<br>
-		-->
-		<div>
-	        <table id="tableUsuario" class="tabelasScgl">
+		
+		
+		<div class = "container">
+	        <table class = "table table-fixed table-bordered" id="tableFisio">
+	          <thead class = "table-secondary text-center">
+	            <tr class="row">
+	              	<th class = "col col-lg-2"> CPF </th>
+	              	<th class = "col col-lg-4"> Nome </th>
+	              	<th class = "col col-lg-5"> E-mail </th>
+	              	<th class = "col col-lg-1"> Status </th>
+	            </tr>
+	          </thead>
+	          <tbody id="tableBodyFisio">
+	          	
+	          </tbody>
+	      	</table>
+	   </div>
+	   -->
+	   
+	   <div>
+	        <table id="tableColab" class="tabelasScgl">
 	          <thead>
 	            <tr>
-	              	<th class="col"> Login </th>
+	              	<th class="col"> CPF </th>
 	              	<th class="col"> Nome </th>
 	              	<th class="col"> E-mail </th>
-	              	<th class="col"> Perfil </th>
 	              	<th class="col"> Status </th>
+	              	<th class="col"> Setor </th>
+	              	<th class="col"> Empresa </th>
 	            </tr>
 	          </thead>
 	      	</table>
 	   </div>
-
+		
 	   <div>
 	   	<footer class="text-center text-white fixed-bottom">
 			  	<div class="text-center p-3" id="rodape">
-			   	Pesquisa de Usuários
+			   	Pesquisa de Colaboradores
 			  	</div>
 			</footer>
 	   </div>

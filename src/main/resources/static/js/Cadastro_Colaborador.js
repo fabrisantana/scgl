@@ -53,12 +53,11 @@ comboEmpresas.addEventListener("change", erroGetSetores =>{
 		setoresCarregados = respostaGetSetores;
         document.getElementById("comboSetores").innerHTML = ""; 
         for(let i = 0; i < respostaGetSetores.length; i++){
-            if(respostaGetSetores[i].idCliente == idEmpresaSelecionada){
+            if(respostaGetSetores[i].idCliente == idEmpresaSelecionada && respostaGetSetores[i].setorEmpresaStatus == 'Ativo'){
                 let optionSetores = new Option(respostaGetSetores[i].siglaSetorEmpresa, respostaGetSetores[i].idSetorEmpresa);
                 comboSetores.add(optionSetores);
             }
         }
-        
     }))
     .catch(erroGetSet => console.log('Erro no GET: '+ erroGetSet.message))
 });
@@ -78,28 +77,7 @@ inputCpfColab.addEventListener("change", erroBlurGet =>{
         for(let i = 0; i < respostaGet.length; i++){
             if(replace(inputCpfColab.value) == respostaGet[i].colaboradorCpf){
 				window.alert("CPF já cadastrado!")
-				fetch(urlSetores, optionsGet)
-			    .then(respostaJsonGet => respostaJsonGet.json()
-			    .then(respostaGetSetores => {
-					//let optionSetores = new Option(respostaGetSetores.siglaSetorEmpresa, respostaGetSetores.idSetorEmpresa);
-                	//comboSetores.add(optionSetores);
-                	 
-               	document.getElementById("comboSetores").innerHTML = ""; 
-		        for(let x = 0; x < respostaGetSetores.length; x++){
-		            if(respostaGetSetores[x].idCliente == idEmpresaSelecionada){  //Mudar para empresa que realizou login
-						let optionSetores = new Option(respostaGetSetores[x].siglaSetorEmpresa, respostaGetSetores[x].idSetorEmpresa);
-		                comboSetores.add(optionSetores);
-		            }
-		            if(respostaGetSetores[x].idSetorEmpresa == respostaGet[x].idSetorEmpresa){
-						//comboSetores.options.selected = respostaGetSetores[x].siglaSetorEmpresa
-						$("#comboSetores option:selected").text() = respostaGetSetores[x].siglaSetorEmpresa
-						console.log($("#comboSetores option:selected").text())
-		            }
-		        }
-				
-				}))
-			    .catch(erroGetSet => console.log('Erro no GET: '+ erroGetSet.message))
-			    	               
+					               
                 inputNomeColab.value = respostaGet[i].colaboradorNome;
             	inputDtNascColab.value = respostaGet[i].colaboradorDataNascimento.substring(0, 4) + '-' + 
                 respostaGet[i].colaboradorDataNascimento.substring(5, 7) + '-' + respostaGet[i].colaboradorDataNascimento.substring(8, 10);
@@ -109,6 +87,34 @@ inputCpfColab.addEventListener("change", erroBlurGet =>{
             	inputStatusColab.value = respostaGet[i].colaboradorStatus;
             	idAltera = respostaGet[i].colaboradorId; 
             	inputCpfColab.disabled = true;
+            	/*
+            	fetch(urlSetores, optionsGet)
+			    .then(respostaJsonGet => respostaJsonGet.json()
+			    .then(respostaGetSetores => {
+					//let optionSetores = new Option(respostaGetSetores.siglaSetorEmpresa, respostaGetSetores.idSetorEmpresa);
+                	//comboSetores.add(optionSetores);
+                	 
+               	document.getElementById("comboSetores").innerHTML = ""; 
+		        for(let x = 0; x < respostaGetSetores.length; x++){
+		            if(respostaGetSetores[x].idCliente == idEmpresaSelecionada && respostaGetSetores[i].setorEmpresaStatus == 'Ativo'){  //Mudar para empresa que realizou login
+						let optionSetores = new Option(respostaGetSetores[x].siglaSetorEmpresa, respostaGetSetores[x].idSetorEmpresa);
+		                comboSetores.add(optionSetores);
+		            }
+		            if(respostaGetSetores[x].idSetorEmpresa == respostaGet[x].idSetorEmpresa){
+						//comboSetores.options.selected = respostaGetSetores[x].siglaSetorEmpresa
+						$("#comboSetores option:selected").text() = respostaGetSetores[x].siglaSetorEmpresa
+						console.log($("#comboSetores option:selected").text())
+		            }
+		        }
+				}))
+			    .catch(erroGetSet => console.log('Erro no GET: '+ erroGetSet.message))
+			    */
+			    if(respostaGetSetores[x].idSetorEmpresa == respostaGet[x].idSetorEmpresa){
+					//comboSetores.options.selected = respostaGetSetores[x].siglaSetorEmpresa
+					$("#comboSetores option:selected").text() = respostaGetSetores[x].siglaSetorEmpresa
+					console.log($("#comboSetores option:selected").text())
+	            }
+			    
             }
         }
     }))

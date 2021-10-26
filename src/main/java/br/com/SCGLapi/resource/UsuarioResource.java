@@ -11,6 +11,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,13 +42,24 @@ public class UsuarioResource {
 	
 	@Autowired 
 	private UsuarioService usuarioService;
-	
+	/*
 	//Listar Todas
 	@GetMapping(value="/usuarios")
 	public ResponseEntity<?> listar(){
 		List<Usuario> usuarios = usuarioCrudRepository.findAll();	
 		return !usuarios.isEmpty() ? ResponseEntity.ok(usuarios) : ResponseEntity.noContent().build();
 	}
+	*/
+	 @GetMapping(value = "/usuarios")
+    public ModelAndView listServers(Usuario model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("usuarios");
+        //modelAndView.addObject("usuarios", accountService.findAllServersAccount(username));
+        return modelAndView;
+    }
 	
 	//Listar um
 	@GetMapping("/usuarios/{id}")
@@ -91,12 +105,4 @@ public class UsuarioResource {
 		usuarioCrudRepository.deleteById(id);
 	}
 	
-	/*
-	@RequestMapping(method = RequestMethod.GET)   
-	 public ModelAndView showResults(final HttpServletRequest request, Principal principal) {
-		final String currentUser = principal.getName();
-		return null;
-
-	 }
-	 */
 }

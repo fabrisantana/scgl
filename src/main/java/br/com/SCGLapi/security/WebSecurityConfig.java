@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -36,8 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		//Páginas autorizadas para o perfil Administrador
 		.antMatchers("/*").hasRole("ADM")
 		
-		//Usu�rio inativo
-		.antMatchers("/inativo").hasAnyRole("INA")
+		//Usuário inativo
+		//.antMatchers("/inativo").hasAnyRole("INA")
 		
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/login").loginProcessingUrl("/login").permitAll()
@@ -52,11 +54,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 		auth.userDetailsService(userDetailsService)
-		.passwordEncoder(new BCryptPasswordEncoder()); 
+		.passwordEncoder(new BCryptPasswordEncoder());
+		
 	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception{
 		web.ignoring().antMatchers("/js/**", "/css/**");
+		
 	}
 }

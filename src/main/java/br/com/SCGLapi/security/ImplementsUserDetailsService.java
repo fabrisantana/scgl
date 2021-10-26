@@ -1,9 +1,11 @@
 package br.com.SCGLapi.security;
 
 import br.com.SCGLapi.repository.UsuarioRepository;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,5 +31,6 @@ public class ImplementsUserDetailsService implements UserDetailsService{
 		}
 		return new User(usuario.getUsername(), usuario.getPassword(), true, true, true, true, usuario.getAuthorities());
 	}
-
+	
+	
 }

@@ -18,7 +18,7 @@ btnCancelar.addEventListener("click", erroClickCancelar =>{
 });
 
 //GET Role Usuario para preencher o tipo de usuario a ser alterado
-inputLogin.addEventListener("blur", inputLoginGet =>{
+inputLogin.addEventListener("change", inputLoginGet =>{
     inputLoginGet.preventDefault()
     fetch(urlUsuariosRole, optionsGet)
     .then(respostaJsonGet => respostaJsonGet.json()
@@ -31,7 +31,7 @@ inputLogin.addEventListener("blur", inputLoginGet =>{
                 inputNomeUsuario.value = respostaGet[i].nomeUsuario.trim().toUpperCase();
                 inputEmailUsuario.value = respostaGet[i].emailUsuario;
                 inputLogin.value = respostaGet[i].loginUsuario;
-                inputStatusUsuario.value = respostaGet[i].statusUsuario;
+                inputStatusUsuario.value = statusUsuarioGet(respostaGet[i].statusUsuario);
                 
                 idUsuarioAltera = respostaGet[i].loginUsuario;
                 window.alert("Usuário já cadastrado!")
@@ -46,88 +46,21 @@ inputLogin.addEventListener("blur", inputLoginGet =>{
 form.addEventListener("submit", realizaPostOuPut =>{
 	realizaPostOuPut.preventDefault()
 	if(idUsuarioAltera > 0){
-		realizaAlteracao()
+		alteraAcessoUsuario()
 	}else{
-		realizaCadastro()
+		realizaCadastroUsuario()
 	}
 })
 
-//Início PUT
-function realizaAlteracao(){
-    const dadosPut = {
-        loginUsuario: loginInformado.value,
-        tipoRole: textoTipoRole(inputTipoUsuario.value),
-        dataHoraAtualizacao: dataHoraAtual,
-        emailUsuario: inputEmailUsuario.value,
-        nomeUsuario: inputNomeUsuario.value.trim().toUpperCase(),
-        statusUsuario: inputStatusUsuario.value
-    }
-    const optionsPut = {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dadosPut)
-    }
 
-    fetch(urlUsuariosRole + loginInformado.value, optionsPut)
-    .then(respostaPut => {
-        if(respostaPut.ok){
-            if(inputStatusUsuario.value == 'Ativo'){
-				window.alert("Sucesso atualiza��o de cadastro!");
-				liberaAcessoUsuario()
-			}else{
-				window.alert("Usuário alterado com status Inativo. Não fará login no sistema!");
-            	//retiraAcessoUsuario()
-            	document.location.reload(true)
-			}
-        }        
-    })
-    .catch(erroPut => window.alert('Erro no PUT:' + erroPut))
-}
-
-//Início POST Usuários
-function realizaCadastro(){
-    const dadosPostUsuarioRole = {
-        loginUsuario: loginInformado.value,
-        tipoRole: textoTipoRole(inputTipoUsuario.value),
-        dataHoraAtualizacao: dataHoraAtual,
-        emailUsuario: inputEmailUsuario.value,
-        nomeUsuario: inputNomeUsuario.value.trim().toUpperCase(),
-        statusUsuario: inputStatusUsuario.value
-    }
-    const optionsPostUsuarioRole = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dadosPostUsuarioRole)
-    }
-    fetch(urlUsuariosRole, optionsPostUsuarioRole)
-    .then(respostaPost => {
-        if(respostaPost.ok){
-			
-			if(inputStatusUsuario.value == 'Ativo'){
-				window.alert("Sucesso no cadastro!");
-				liberaAcessoUsuario()
-			}else{
-				window.alert("Usuário cadastrado com status Inativo. Não fará login no sistema!")
-            	document.location.reload(true)
-			}
-       	}else{
-			window.alert("Verifique os dados digitados!")
-		}       
-    })
-    .catch(erroPost => window.alert('Erro no POST:' + erroPost))
-}
 	
-//Grava usuário criado na tabela Usuários Role, se não gravar aqui, o usuário não fará login
-function liberaAcessoUsuario(){
+//POST Usuários
+function realizaCadastroUsuario(){
 	const dadosPostUsuario = {
         login: loginInformado.value.trim(),
         senha: senhaInicial,
         dataHoraAtualizacao: dataHoraAtual,
-        statusUsuario: inputStatusUsuario.value
+        statusUsuario: statusUsuario()
     }
     const optionsPostUsuario = {
         method: 'POST',
@@ -140,9 +73,7 @@ function liberaAcessoUsuario(){
     fetch(urlUsuarios, optionsPostUsuario)
     .then(respostaPost => {
         if(respostaPost.ok){
-			//realizaCadastro()
-            window.alert("Usuário cadastrado/alterado e acesso liberado ao sistema!")
-            document.location.reload(true)
+            realizaCadastroUsuarioRole()
         }else{
 			window.alert("Verifique os dados digitados!")
 		}       
@@ -150,30 +81,89 @@ function liberaAcessoUsuario(){
     .catch(erroPost => window.alert('Erro no POST:' + erroPost));
 }
 
-/*
-//Função que deleta o usuário da tabela Usuario, retirando o acesso ao sistema
-function retiraAcessoUsuario(){
-	const optionsDeleteUsuario = {
-        method: 'DELETE',
+//PUT Usuários
+function alteraAcessoUsuario(){
+    const dadosPutUsuarios = {
+        login: loginInformado.value.trim(),
+        senha: senhaInicial,
+        dataHoraAtualizacao: dataHoraAtual,
+        statusUsuario: statusUsuario()
+    }
+    const optionsPutUsuarios = {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify(dadosPutUsuarios)
     }
 
-    //fetch(urlUsuarios + loginInformado.value, optionsDeleteUsuario)
-    .then(respostaDelete => {
-        if(respostaDelete.ok){
-            window.alert("Retirado acesso ao sistema!")
-            document.location.reload(true)
+    fetch(urlUsuarios + loginInformado.value, optionsPutUsuarios)
+    .then(respostaPut => {
+        if(respostaPut.ok){
+            alteraUsuarioRole()
         }else{
 			window.alert("Verifique os dados digitados!")
 		}       
     })
-    .catch(erroPost => window.alert('Erro no POST:' + erroPost));
+    .catch(erroPut => window.alert('Erro no PUT:' + erroPut))
 }
-*/
 
+//PUT Usuários Role
+function alteraUsuarioRole(){
+    const dadosPut = {
+        loginUsuario: loginInformado.value,
+        tipoRole: textoTipoRole(inputTipoUsuario.value),
+        dataHoraAtualizacao: dataHoraAtual,
+        emailUsuario: inputEmailUsuario.value,
+        nomeUsuario: inputNomeUsuario.value.trim().toUpperCase(),
+        statusUsuario: statusUsuario()
+    }
+    const optionsPut = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dadosPut)
+    }
 
+    fetch(urlUsuariosRole + loginInformado.value, optionsPut)
+    .then(respostaPut => {
+        if(respostaPut.ok){
+            window.alert("Sucesso na atualização de cadastro!");
+        }else{
+			window.alert("Verifique os dados digitados!")
+		}        
+    })
+    .catch(erroPut => window.alert('Erro no PUT:' + erroPut))
+}
+
+//POST Usuários Role
+function realizaCadastroUsuarioRole(){
+    const dadosPostUsuarioRole = {
+        loginUsuario: loginInformado.value,
+        tipoRole: textoTipoRole(inputTipoUsuario.value),
+        dataHoraAtualizacao: dataHoraAtual,
+        emailUsuario: inputEmailUsuario.value,
+        nomeUsuario: inputNomeUsuario.value.trim().toUpperCase(),
+        statusUsuario: statusUsuario()
+    }
+    const optionsPostUsuarioRole = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dadosPostUsuarioRole)
+    }
+    fetch(urlUsuariosRole, optionsPostUsuarioRole)
+    .then(respostaPost => {
+        if(respostaPost.ok){
+            window.alert("Sucesso no cadastro!");
+        }else{
+			window.alert("Verifique os dados digitados!")
+		}       
+    })
+    .catch(erroPost => window.alert('Erro no POST:' + erroPost))
+}
 
 //Transforma o texto do tipo Role conforme está cadastrado no banco para o POST
 function textoTipoRole(tipoSelecionado){
@@ -185,9 +175,6 @@ function textoTipoRole(tipoSelecionado){
 	}
 	if(tipoSelecionado == "Fisioterapeuta"){
 		return "ROLE_FIS"
-	}
-	if(tipoSelecionado == "Inativo"){
-		return "ROLE_INA"
 	}
 }
 
@@ -201,9 +188,6 @@ function textoTipoRoleGet(tipoSelecionado){
 	}
 	if(tipoSelecionado == "ROLE_FIS"){
 		return "Fisioterapeuta"
-	}
-	if(tipoSelecionado == "ROLE_INA"){
-		return "Inativo"
 	}
 }
 
@@ -219,5 +203,23 @@ function adicionaZero(numero){
     }
     else{
         return numero; 
+    }
+}
+
+//Transforma status ativo em true ou inativo em false, serve para bloquear o acesso do usuário ao sistema
+function statusUsuario() {
+    if(inputStatusUsuario.value == "Ativo"){
+        return true;
+    }else{
+        return false
+    }
+}
+
+//Transforma status ativo em true ou inativo em false, serve para bloquear o acesso do usuário ao sistema
+function statusUsuarioGet(boolBanco) {
+    if(boolBanco){
+        return "Ativo";
+    }else{
+        return "Inativo"
     }
 }
